@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Christoph Philipp Karnath - Schauspieler",
   description: "Portfolio von Christoph Philipp Karnath - Professioneller Schauspieler",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({
