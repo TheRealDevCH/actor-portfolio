@@ -79,6 +79,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Footer */}
+      <footer className="py-6 px-4 text-center">
+        <p className="text-white/40 text-xs sm:text-sm">
+          Diese Website wurde mit Monster Energy 🥫 gemacht
+        </p>
+      </footer>
+
       {/* Lightbox Modal */}
       {selectedImage && (
         <div
