@@ -1,13 +1,6 @@
-'use client';
-
 import Image from "next/image";
-import { useState } from "react";
 
 export default function Home() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [clickCount, setClickCount] = useState(0);
-  const [showEasterEgg, setShowEasterEgg] = useState(false);
-
   const images = [
     "/2f73d626-1320-4306-bf88-ab67839492b7.jpg",
     "/45d0c922-b937-49bf-b341-34c7d35ca5d5.jpg",
@@ -51,8 +44,7 @@ export default function Home() {
           {images.map((image, index) => (
             <div
               key={index}
-              className="relative aspect-[3/4] overflow-hidden cursor-pointer group"
-              onClick={() => setSelectedImage(image)}
+              className="relative aspect-[3/4] overflow-hidden group"
             >
               <Image
                 src={image}
@@ -85,32 +77,6 @@ export default function Home() {
           Diese Website wurde mit viel zu viel Monster Energy 🥫 gemacht
         </p>
       </footer>
-
-      {/* Lightbox Modal */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
-            type="button"
-            className="absolute top-2 sm:top-4 right-2 sm:right-4 text-white text-3xl sm:text-4xl hover:text-gray-300 transition-colors z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
-            onClick={() => setSelectedImage(null)}
-            aria-label="Schließen"
-          >
-            &times;
-          </button>
-          <div className="relative w-full h-full max-w-[95vw] max-h-[95vh] sm:max-w-5xl sm:max-h-[90vh]">
-            <Image
-              src={selectedImage}
-              alt="Portfolio Detail"
-              fill
-              className="object-contain"
-              sizes="95vw"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
