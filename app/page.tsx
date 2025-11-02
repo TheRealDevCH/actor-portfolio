@@ -63,18 +63,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <a
-            href="mailto:kontakt@christoph-karnath.de"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/60 hover:bg-white hover:text-black transition-all duration-300 text-base sm:text-lg tracking-wider"
-          >
-            KONTAKT AUFNEHMEN
-          </a>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="py-6 px-4 text-center">
         <p className="text-white/40 text-xs sm:text-sm">
