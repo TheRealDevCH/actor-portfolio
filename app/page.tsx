@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
+import NewsletterForm from "./components/NewsletterForm";
 import AndroidInstallButton from "./components/AndroidInstallButton";
 
 export default function Home() {
@@ -62,7 +63,7 @@ export default function Home() {
             </div>
           ))}
 
-          {/* Contact Form as 6th grid item */}
+          <NewsletterForm />
           <ContactForm />
         </div>
       </section>
