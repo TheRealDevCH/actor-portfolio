@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import PWAInstall from "./components/PWAInstall";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,17 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 5,
   },
+  manifest: "/manifest.json",
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "CPK Portfolio",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -32,6 +44,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <PWAInstall />
         {children}
       </body>
     </html>
