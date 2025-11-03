@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
-import NewsletterForm from "./components/NewsletterForm";
+import NewsletterEmailField from "./components/NewsletterEmailField";
 import AndroidInstallButton from "./components/AndroidInstallButton";
 
 export default function Home() {
@@ -63,9 +63,12 @@ export default function Home() {
             </div>
           ))}
 
-          <NewsletterForm />
           <ContactForm />
         </div>
+      </section>
+
+      <section className="w-full py-16 px-4">
+        <NewsletterEmailField />
       </section>
 
       {/* Footer */}
