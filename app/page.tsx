@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
+import AndroidInstallButton from "./components/AndroidInstallButton";
 
 export default function Home() {
   const images = [
@@ -14,6 +15,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* Android Install Button */}
+      <AndroidInstallButton />
+
       {/* Hero Section with Name Overlay */}
       <section className="relative h-[100dvh] w-full overflow-hidden">
         <Image
