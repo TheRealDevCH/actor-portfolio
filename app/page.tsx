@@ -66,7 +66,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-6 px-4 text-center">
         <p className="text-white/40 text-xs sm:text-sm">
-          Diese Website wurde mit viel zu viel Monster Energy 🥫 gemacht
+          Diese Website wurde mit viel zu viel Monster Energy 🥫 von Philipp gemacht
         </p>
       </footer>
     </div>
