@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
+import NewsletterForm from "./components/NewsletterForm";
 import NewsletterEmailField from "./components/NewsletterEmailField";
 import AndroidInstallButton from "./components/AndroidInstallButton";
 
@@ -63,6 +64,7 @@ export default function Home() {
             </div>
           ))}
 
+          <NewsletterForm />
           <ContactForm />
         </div>
       </section>
