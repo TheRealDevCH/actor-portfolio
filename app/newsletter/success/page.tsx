@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 
-export default function NewsletterSuccessPage() {
-  const searchParams = useSearchParams();
+function SuccessContent() {
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export default function NewsletterSuccessPage() {
           <p className="text-white text-xl sm:text-2xl mb-4">
             Danke für dein Newsletter-Abonnement! 🎭
           </p>
-          
+
           <div className="text-white/80 text-base sm:text-lg space-y-3 mb-6">
             <p>Du erhältst ab sofort exklusive Updates zu:</p>
             <ul className="space-y-2">
@@ -67,6 +65,18 @@ export default function NewsletterSuccessPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function NewsletterSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-2xl">Lädt...</div>
+      </div>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }
 
