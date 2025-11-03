@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
             product_data: {
               name: 'CPK Newsletter Abonnement',
               description: 'Exklusive Updates zu Theater-Shows, Dreharbeiten und mehr - 0.50 CHF pro E-Mail',
-              images: ['https://actor-portfolio-phi.vercel.app/icon-512x512.png'],
+              images: ['https://philipp-k.com/icon-512x512.png'],
             },
             unit_amount: 50,
           },

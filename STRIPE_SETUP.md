@@ -35,7 +35,7 @@
 
 1. Gehe zu [https://dashboard.stripe.com/webhooks](https://dashboard.stripe.com/webhooks)
 2. Klicke auf "Add endpoint"
-3. URL: `https://actor-portfolio-phi.vercel.app/api/newsletter/webhook`
+3. URL: `https://philipp-k.com/api/newsletter/webhook`
 4. Events auswählen: `checkout.session.completed`
 5. Kopiere den Webhook Secret
 6. Füge ihn in Vercel Environment Variables ein
@@ -48,7 +48,7 @@
 4. Füge hinzu:
    - `STRIPE_SECRET_KEY` = dein Live Secret Key (beginnt mit `sk_live_...`)
    - `STRIPE_WEBHOOK_SECRET` = dein Production Webhook Secret
-   - `NEXT_PUBLIC_BASE_URL` = `https://actor-portfolio-phi.vercel.app`
+   - `NEXT_PUBLIC_BASE_URL` = `https://philipp-k.com`
 
 ## 5. Live Mode aktivieren
 
