@@ -116,16 +116,72 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: process.env.EMAIL_USER || 'websitenphilipp@gmail.com',
       to: email,
-      subject: 'Ihre Nachricht wurde empfangen',
+      subject: 'Nachricht erhalten – Christoph Philipp Karnath',
       html: `
-        <h2>Vielen Dank für Ihre Nachricht!</h2>
-        <p>Hallo ${name},</p>
-        <p>Ihre Nachricht wurde erfolgreich übermittelt. Ich werde mich so schnell wie möglich bei Ihnen melden.</p>
-        <br>
-        <p>Mit freundlichen Grüßen,</p>
-        <p><strong>Christoph Philipp Karnath</strong></p>
-        <hr>
-        <p style="color: #666; font-size: 12px;">Dies ist eine automatische Bestätigung. Bitte antworten Sie nicht auf diese E-Mail.</p>
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #ffffff; border: 1px solid #e0e0e0;">
+
+                  <!-- Header -->
+                  <tr>
+                    <td style="padding: 40px 40px 30px; text-align: center; border-bottom: 1px solid #e0e0e0;">
+                      <h1 style="margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 2px; color: #000000;">
+                        CHRISTOPH PHILIPP KARNATH
+                      </h1>
+                      <p style="margin: 8px 0 0; font-size: 12px; letter-spacing: 1px; color: #666666; text-transform: uppercase;">
+                        Schauspieler
+                      </p>
+                    </td>
+                  </tr>
+
+                  <!-- Content -->
+                  <tr>
+                    <td style="padding: 40px 40px 30px;">
+                      <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #333333;">
+                        Hallo ${name},
+                      </p>
+                      <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #333333;">
+                        vielen Dank für Ihre Nachricht. Ich habe Ihre Anfrage erhalten und werde mich in Kürze bei Ihnen melden.
+                      </p>
+                      ${subject ? `
+                      <p style="margin: 0 0 20px; font-size: 14px; line-height: 1.6; color: #666666;">
+                        <strong>Betreff:</strong> ${subject}
+                      </p>
+                      ` : ''}
+                      <div style="margin: 30px 0; height: 1px; background-color: #e0e0e0;"></div>
+                      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #333333;">
+                        Mit freundlichen Grüßen
+                      </p>
+                      <p style="margin: 10px 0 0; font-size: 16px; font-weight: 500; color: #000000;">
+                        Christoph Philipp Karnath
+                      </p>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="padding: 20px 40px; background-color: #fafafa; border-top: 1px solid #e0e0e0;">
+                      <p style="margin: 0; font-size: 11px; line-height: 1.5; color: #999999; text-align: center;">
+                        Dies ist eine automatische Bestätigungsmail.<br>
+                        Bitte antworten Sie nicht direkt auf diese Nachricht.
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     });
 
