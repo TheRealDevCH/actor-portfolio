@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PWAInstall from "./components/PWAInstall";
+import AndroidInstallPopup from "./components/AndroidInstallPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <PWAInstall />
+        <AndroidInstallPopup />
         {children}
       </body>
     </html>
