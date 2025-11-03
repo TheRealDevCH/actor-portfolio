@@ -1,17 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Liste mit obszönen/unangemessenen Wörtern (Beispiele - erweitere nach Bedarf)
+// Erweiterte Liste mit obszönen/unangemessenen Wörtern inkl. Variationen und Abkürzungen
 const BLOCKED_WORDS = [
-  'arschloch', 'scheiße', 'fick', 'hurensohn', 'wichser', 'fotze',
-  'bastard', 'idiot', 'dummkopf', 'schwuchtel', 'nutte',
+  // Deutsche Begriffe
+  'arschloch', 'arsch', 'scheisse', 'scheiße', 'scheiss', 'fick', 'ficken', 'gefickt',
+  'hurensohn', 'huso', 'husos', 'hurensöhne', 'wichser', 'wichsen', 'fotze', 'fotzen',
+  'bastard', 'schwuchtel', 'schwuchteln', 'nutte', 'nutten', 'hure', 'huren',
+  'schlampe', 'schlampen', 'missgeburt', 'drecksau', 'arschgeige', 'arschgesicht',
+  'pisser', 'pissen', 'kacke', 'kacken', 'scheißkerl', 'scheisskerl',
+  'vollpfosten', 'vollidiot', 'spast', 'spasti', 'mongo', 'mongos',
+  'behinderter', 'behinderte', 'opfer', 'penner', 'wixer', 'wixxer',
+
   // Englische Begriffe
-  'fuck', 'shit', 'bitch', 'asshole', 'damn', 'cunt', 'dick',
+  'fuck', 'fucking', 'fucked', 'fucker', 'fck', 'fuk', 'fking',
+  'shit', 'shitty', 'bullshit', 'bitch', 'bitches', 'btch',
+  'asshole', 'assholes', 'ass', 'arse', 'damn', 'damned',
+  'cunt', 'cunts', 'cnt', 'dick', 'dicks', 'cock', 'pussy',
+  'whore', 'whores', 'slut', 'sluts', 'bastard', 'bastards',
+  'motherfucker', 'mofo', 'mf', 'wtf', 'stfu',
+  'retard', 'retarded', 'retards', 'fag', 'faggot', 'nigger', 'nigga',
+
+  // Leetspeak und Variationen
+  'f*ck', 'f**k', 'sh*t', 'b*tch', 'a**hole', 'c*nt',
+  'fvck', 'shlt', 'azz', 'phuck', 'biatch',
+
+  // Weitere Sprachen
+  'merde', 'putain', 'connard', 'salope', // Französisch
+  'puta', 'puto', 'mierda', 'cabron', 'pendejo', // Spanisch
+  'cazzo', 'merda', 'stronzo', 'puttana', // Italienisch
 ];
 
 function containsBlockedWords(text: string): boolean {
+  // Text in Kleinbuchstaben und entferne Sonderzeichen/Leerzeichen für bessere Erkennung
+  const normalizedText = text.toLowerCase()
+    .replace(/[^a-z0-9äöüß]/g, '') // Entfernt Sonderzeichen, behält Umlaute
+    .replace(/\s+/g, ''); // Entfernt Leerzeichen
+
+  // Prüfe auch den Original-Text (mit Leerzeichen)
   const lowerText = text.toLowerCase();
-  return BLOCKED_WORDS.some(word => lowerText.includes(word));
+
+  return BLOCKED_WORDS.some(word => {
+    const normalizedWord = word.replace(/[^a-z0-9äöüß]/g, '');
+    // Prüfe beide Versionen: mit und ohne Sonderzeichen
+    return normalizedText.includes(normalizedWord) || lowerText.includes(word);
+  });
 }
 
 export async function POST(request: NextRequest) {
