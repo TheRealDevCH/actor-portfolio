@@ -8,12 +8,21 @@ const COUNTRY_CODES = [
   { code: '+43', country: 'AT', flag: '🇦🇹' },
 ];
 
+const SUBJECTS = [
+  { value: '', label: 'Betreff wählen (optional)' },
+  { value: 'Buchung Schauspieler Musical', label: 'Buchung Schauspieler Musical' },
+  { value: 'Buchung Schauspieler Film Statis', label: 'Buchung Schauspieler Film Statis' },
+  { value: 'Buchung Schauspieler Film', label: 'Buchung Schauspieler Film' },
+  { value: 'Buchung Schauspieler Theater', label: 'Buchung Schauspieler Theater' },
+];
+
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     countryCode: '+49',
+    subject: '',
     message: '',
   });
 
@@ -23,6 +32,8 @@ export default function ContactForm() {
   }>({ type: 'idle', message: '' });
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -48,23 +59,41 @@ export default function ContactForm() {
 
       if (response.ok) {
         setStatus({ type: 'success', message: data.message });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          countryCode: '+49',
-          message: '',
-        });
+
+        // Fade out form
+        setShowForm(false);
+
+        // Show success message after fade out
+        setTimeout(() => {
+          setShowSuccess(true);
+        }, 300);
+
+        // Reset form and fade back in after 4 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+          setTimeout(() => {
+            setFormData({
+              name: '',
+              email: '',
+              phone: '',
+              countryCode: '+49',
+              subject: '',
+              message: '',
+            });
+            setStatus({ type: 'idle', message: '' });
+            setShowForm(true);
+          }, 300);
+        }, 4000);
       } else {
-        setStatus({ 
-          type: 'error', 
-          message: data.error || 'Ein Fehler ist aufgetreten.' 
+        setStatus({
+          type: 'error',
+          message: data.error || 'Ein Fehler ist aufgetreten.'
         });
       }
     } catch (error) {
-      setStatus({ 
-        type: 'error', 
-        message: 'Verbindungsfehler. Bitte versuchen Sie es später erneut.' 
+      setStatus({
+        type: 'error',
+        message: 'Verbindungsfehler. Bitte versuchen Sie es später erneut.'
       });
     }
   };
@@ -76,7 +105,30 @@ export default function ContactForm() {
           KONTAKT
         </h3>
 
-        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+        {/* Success Message */}
+        {showSuccess && (
+          <div className="absolute inset-0 flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-fade-in">
+            <div className="text-center space-y-4">
+              <div className="text-4xl sm:text-5xl mb-4">✓</div>
+              <h4 className="text-white text-lg sm:text-xl font-bold">
+                Danke fürs Senden!
+              </h4>
+              <p className="text-white/80 text-sm sm:text-base">
+                Schau in dein E-Mail-Postfach nach.
+                <br />
+                Philipp wird sich bald bei dir melden.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className={`space-y-3 sm:space-y-4 transition-opacity duration-300 ${
+            showForm ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
           {/* Name */}
           <div className="relative">
             <input
@@ -92,6 +144,25 @@ export default function ContactForm() {
                 focusedField === 'name' ? 'hologram-input' : ''
               }`}
             />
+          </div>
+
+          {/* Betreff Dropdown */}
+          <div className="relative">
+            <select
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className="w-full bg-transparent border-b-2 border-white/40 text-white px-2 py-2 text-sm sm:text-base focus:outline-none focus:border-white transition-all duration-300 cursor-pointer appearance-none"
+            >
+              {SUBJECTS.map((subject) => (
+                <option key={subject.value} value={subject.value} className="bg-black text-white">
+                  {subject.label}
+                </option>
+              ))}
+            </select>
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-white/50">
+              ▼
+            </div>
           </div>
 
           {/* Email */}

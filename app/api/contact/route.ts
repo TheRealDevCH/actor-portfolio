@@ -17,12 +17,12 @@ function containsBlockedWords(text: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, countryCode, message } = body;
+    const { name, email, phone, countryCode, subject, message } = body;
 
-    // Validierung
+    // Validierung (subject ist optional)
     if (!name || !email || !phone || !countryCode || !message) {
       return NextResponse.json(
-        { error: 'Alle Felder müssen ausgefüllt werden.' },
+        { error: 'Alle Pflichtfelder müssen ausgefüllt werden.' },
         { status: 400 }
       );
     }
@@ -58,13 +58,19 @@ export async function POST(request: NextRequest) {
 
     const fullPhone = `${countryCode} ${phone}`;
 
+    // E-Mail Subject mit Betreff
+    const emailSubject = subject
+      ? `${subject} - ${name}`
+      : `Neue Kontaktanfrage von ${name}`;
+
     // E-Mail an dich
     await transporter.sendMail({
       from: process.env.EMAIL_USER || 'websitenphilipp@gmail.com',
       to: 'websitenphilipp@gmail.com',
-      subject: `Neue Kontaktanfrage von ${name}`,
+      subject: emailSubject,
       html: `
         <h2>Neue Kontaktanfrage</h2>
+        ${subject ? `<p><strong>Betreff:</strong> ${subject}</p>` : ''}
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>E-Mail:</strong> ${email}</p>
         <p><strong>Telefon:</strong> ${fullPhone}</p>
