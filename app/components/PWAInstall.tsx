@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 export default function PWAInstall() {
   useEffect(() => {
-    // Register Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker
@@ -19,6 +18,6 @@ export default function PWAInstall() {
     }
   }, []);
 
-  return null; // This component doesn't render anything
+  return null;
 }
 

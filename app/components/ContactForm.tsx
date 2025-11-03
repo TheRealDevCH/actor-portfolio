@@ -60,15 +60,12 @@ export default function ContactForm() {
       if (response.ok) {
         setStatus({ type: 'success', message: data.message });
 
-        // Fade out form
         setShowForm(false);
 
-        // Show success message after fade out
         setTimeout(() => {
           setShowSuccess(true);
         }, 300);
 
-        // Reset form and fade back in after 4 seconds
         setTimeout(() => {
           setShowSuccess(false);
           setTimeout(() => {
@@ -105,7 +102,6 @@ export default function ContactForm() {
           KONTAKT
         </h3>
 
-        {/* Success Message */}
         {showSuccess && (
           <div className="absolute inset-0 flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-fade-in">
             <div className="text-center space-y-4">
@@ -122,14 +118,12 @@ export default function ContactForm() {
           </div>
         )}
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className={`space-y-3 sm:space-y-4 transition-opacity duration-300 ${
             showForm ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          {/* Name */}
           <div className="relative">
             <input
               type="text"
@@ -146,7 +140,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Betreff Dropdown */}
           <div className="relative">
             <select
               name="subject"
@@ -165,7 +158,6 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* Email */}
           <div className="relative">
             <input
               type="email"
@@ -182,7 +174,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Telefon mit Vorwahl */}
           <div className="relative flex gap-2">
             <select
               name="countryCode"
@@ -212,7 +203,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Nachricht */}
           <div className="relative">
             <textarea
               name="message"
@@ -229,7 +219,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={status.type === 'loading'}
@@ -238,7 +227,6 @@ export default function ContactForm() {
             {status.type === 'loading' ? 'WIRD GESENDET...' : 'ABSENDEN'}
           </button>
 
-          {/* Status Message */}
           {status.message && (
             <div
               className={`text-center text-xs sm:text-sm py-2 ${
@@ -255,7 +243,6 @@ export default function ContactForm() {
         </form>
       </div>
 
-      {/* Hologram Effect Overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5 animate-pulse" />
       </div>

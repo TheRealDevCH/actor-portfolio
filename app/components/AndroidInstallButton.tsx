@@ -13,18 +13,15 @@ export default function AndroidInstallButton() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Check if Android
     const userAgent = navigator.userAgent.toLowerCase();
     const android = /android/.test(userAgent);
     setIsAndroid(android);
 
-    // Check if already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
 
-    // Listen for beforeinstallprompt event
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -40,34 +37,30 @@ export default function AndroidInstallButton() {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
-    // Show install prompt
     deferredPrompt.prompt();
 
-    // Wait for user choice
     const { outcome } = await deferredPrompt.userChoice;
-    
+
     if (outcome === 'accepted') {
       console.log('User accepted the install prompt');
       setIsInstalled(true);
     }
 
-    // Clear the prompt
     setDeferredPrompt(null);
   };
 
-  // Don't show if not Android or already installed or no prompt available
   if (!isAndroid || isInstalled || !deferredPrompt) {
     return null;
   }
 
   return (
     <button
+      type="button"
       onClick={handleInstallClick}
       className="fixed top-4 right-4 z-50 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full p-3 hover:bg-white/20 transition-all duration-300 group"
       aria-label="Als App installieren"
     >
       <div className="relative">
-        {/* Android Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -82,8 +75,7 @@ export default function AndroidInstallButton() {
           <line x1="3" y1="6" x2="21" y2="6" />
           <path d="M16 10a4 4 0 0 1-8 0" />
         </svg>
-        
-        {/* Tooltip */}
+
         <div className="absolute top-full right-0 mt-2 px-3 py-2 bg-black/90 text-white text-xs whitespace-nowrap rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           Als App installieren
         </div>
