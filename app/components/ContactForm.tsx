@@ -107,17 +107,38 @@ export default function ContactForm() {
 
         {/* Success Message */}
         {showSuccess && (
-          <div className="absolute inset-0 flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-fade-in">
-            <div className="text-center space-y-4">
-              <div className="text-4xl sm:text-5xl mb-4">✓</div>
-              <h4 className="text-white text-lg sm:text-xl font-bold">
-                Danke fürs Senden!
-              </h4>
-              <p className="text-white/80 text-sm sm:text-base">
-                Schau in dein E-Mail-Postfach nach.
-                <br />
-                Philipp wird sich bald bei dir melden.
-              </p>
+          <div className="absolute inset-0 flex items-center justify-center p-6 animate-fade-in">
+            <div className="text-center space-y-6">
+              {/* Elegant Checkmark Circle */}
+              <div className="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/60 flex items-center justify-center relative">
+                <div className="absolute inset-0 rounded-full bg-white/5 animate-pulse" />
+                <svg
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-white relative z-10"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Text */}
+              <div className="space-y-3">
+                <h4 className="text-white text-xl sm:text-2xl font-light tracking-wide">
+                  Nachricht gesendet
+                </h4>
+                <div className="w-12 h-px bg-white/40 mx-auto" />
+                <p className="text-white/70 text-sm sm:text-base font-light leading-relaxed">
+                  Prüfe dein Postfach
+                  <br />
+                  <span className="text-white/90">Philipp meldet sich bald</span>
+                </p>
+              </div>
             </div>
           </div>
         )}
